@@ -6,3 +6,17 @@ body {
 a {
   color: #00B7FF;
 }
+
+.menu-right{
+	float: right;
+}
+
+.logo{
+	margin-top: 50px;
+	margin-bottom: 30px;
+}
+
+.search-bar{
+	width: 300px;
+	height: 40px;
+}
