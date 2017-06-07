@@ -8,10 +8,12 @@
 <body>
 
 	<% include navbar %>
+	<% include login-modal %>
+	<% include register-modal %>
 
 	<div class="container">
 		<div class="col-xs-12 text-center logo">
-			<img src="http://via.placeholder.com/300x150" />
+			<img src="../images/cycSlopeTemp.png" />
 		</div>
 		<div class="search-area">
 			<div class="col-xs-4 col-xs-offset-2">
@@ -21,7 +23,12 @@
 				<input class="search-bar" type="text" placeholder="End" />
 			</div>
 		</div>
+		<video poster="../images/bike-bg-static.jpg" id="bgvid" playsinline autoplay muted loop>
+			<source src="../video/bike-bg.mp4" type="video/mp4">
+		</video>
 	</div>
+
+
 
 </body>
 </html>
