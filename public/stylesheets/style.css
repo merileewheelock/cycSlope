@@ -1,6 +1,20 @@
 body {
   /* padding: 50px; */
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+
+.pages{
+	height: 200vh;
+}
+
+.page1, .page2{
+	height: 100vh;
+	float: top;
+	width: 100vw;
+	position: relative;
+	top: 0px;
+	transition: all 3s;
 }
 
 video { 
@@ -35,3 +49,14 @@ a {
 	width: 300px;
 	height: 40px;
 }
+
+.go-button{
+	margin-top: 10px;
+}
+
+/* .go-back{
+	position: absolute;
+	height: 100px;
+	width: 100px;
+	top: 50%;
+} */
