@@ -1,9 +1,17 @@
 body {
-  /* padding: 50px; */
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  overflow: hidden;
-  background: url('../images/video-static.png') no-repeat;
-  background-size: cover;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	overflow: hidden;	
+}
+
+.bg-overlay{
+	background-color: rgba(25, 29, 34, 0.65);
+	z-index: -50;
+}
+
+.bg-img{
+	background: url('../images/video-static.png') no-repeat;
+	background-size: cover;
+	z-index: -100;
 }
 
 .navbar{
