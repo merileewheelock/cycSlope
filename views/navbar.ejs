@@ -10,9 +10,10 @@
     <ul class="nav navbar-nav menu-right">
       <% if (loggedin == true) { %>
         <li><a href="/profile" class="profile">Profile</a></li>
+        <li><a href="/logout" class="logout">Log out</a></li>
       <%}%>
       <% if (loggedin !== true) { %>
-        <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#login-modal">Log in</a></li>
         <li><a href="#" data-toggle="modal" data-target="#register-modal">Register</a></li>
       <%}%>
    </ul>
