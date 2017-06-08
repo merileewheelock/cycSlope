@@ -1,5 +1,6 @@
 body {
-	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	font-family: 'Poppins', sans-serif;
+	font-size: 14px;
 	overflow: hidden;	
 }
 
@@ -134,6 +135,7 @@ a {
 /* --------PROFILE VIEW-------- */
 
 .main-profile-box{
+	position: relative;
 	border: 2px solid black;
 	background-color: lightgray;
 	margin-top: 100px;
@@ -142,4 +144,21 @@ a {
 .prof-pic{
 	border: 2px solid black;
 	margin: 10px;
+	margin-left: 30px;
+	height: 200px;
+	width: 200px;
+	border-radius: 10px;
+}
+
+.user-info-table{
+	margin: 50px;
+}
+
+.user-info-area{
+	margin-top: 10px;
+	font-size: 20px;
+}
+
+.info-input, .info-output{
+	margin-bottom: 10px;
 }
