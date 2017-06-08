@@ -1,13 +1,20 @@
 $(document).ready(function(){
 	
 	$('.go-button').click(function(){
-		$('.page1,.page2').css({
-			'top':'100vh'
+		$('.page1').css({
+			'top':'-100vh'
+		});
+		$('.page2').css({
+			'top':'0vh'
 		});
 	});
-	$('.back-home').click(function(){
-		$('.page1,.page2').css({
+
+	$('.go-back').click(function(){
+		$('.page1').css({
 			'top':'0vh'
+		});
+		$('.page2').css({
+			'top':'200vh'
 		});
 	});
 
