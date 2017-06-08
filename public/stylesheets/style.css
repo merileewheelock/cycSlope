@@ -20,6 +20,7 @@ body {
 	position: absolute;
 	top: 0vh;
 	transition: all 3s;
+	margin-top: 100px;
 }
 
 .page2{
@@ -75,6 +76,21 @@ a {
 
 /* --------RESULTS-VIEW-------- */
 
-.result-box{
-	
+.my-carousel{
+	position: relative;
+	height: 500px;
+}
+
+.carousel-list{
+	list-style: none;
+	/* display: inline; */
+}
+
+.caption{
+	color: black;
+}
+
+.map{
+	border: 2px solid black;
+	margin: 5px;
 }
