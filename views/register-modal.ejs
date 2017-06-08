@@ -12,7 +12,12 @@
                         <div class="col-sm-12 text-center">
                             <h1>Sign Up</h1>
                         </div>
-
+                    <div class="col-sm-12 red-text text-center">
+                        <% if(typeof(message != 'undefined')){ %>
+                            <h3><%=message%></h3>
+                        <% } %> 
+                    </div>
+                       
                         <div class="col-sm-12">
                             <input type="text" name="username" placeholder="Enter your name">
                         </div>
