@@ -20,6 +20,8 @@ $(document).ready(function(){
 
 	$('.carousel').carousel({
 		interval: false
-	})
+	});
+
+	$('.profile').load('profile.ejs');
 
 });
