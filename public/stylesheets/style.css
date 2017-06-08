@@ -1,7 +1,7 @@
 body {
   /* padding: 50px; */
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 .navbar{
@@ -70,4 +70,11 @@ a {
 
 .go-back{
 	position: relative;
+}
+
+
+/* --------RESULTS-VIEW-------- */
+
+.result-box{
+	
 }
