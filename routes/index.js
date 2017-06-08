@@ -19,7 +19,8 @@ router.get('/', function(req, res, next) {
     }
   res.render('index', { 
     title: 'Express',
-    message: message
+    message: message,
+    loggedin: req.session.loggedin
     });
 });
 router.post('/processRegister', function(req,res){
@@ -70,7 +71,9 @@ router.post('/processLogin', function(req,res){
     });
 });
 router.get('/profile', function(req,res){
-    res.render('profile');
+    res.render('profile', {
+        loggedin: req.session.loggedin
+    });
 });
 
 module.exports = router;
