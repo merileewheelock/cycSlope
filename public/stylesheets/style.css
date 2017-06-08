@@ -79,6 +79,7 @@ a {
 .search-bar{
 	width: 300px;
 	height: 40px;
+	margin: 0px 10px;
 }
 
 .go-button, .go-back{
