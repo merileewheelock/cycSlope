@@ -11,6 +11,8 @@ var connection = mysql.createConnection({
     password: config.sql.password,
     database: config.sql.database
 });
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
     var message = req.query.msg;
