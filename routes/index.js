@@ -3,6 +3,7 @@ var router = express.Router();
 var request = require('request');
 var session = require('express-session');
 var config = require('../config/config');
+var connect = require('connect');
 // var bcrypt = require('bcrypt-nodejs');
 var mysql = require('mysql');
 var connection = mysql.createConnection({
@@ -11,6 +12,7 @@ var connection = mysql.createConnection({
     password: config.sql.password,
     database: config.sql.database
 });
+var googleMapsServer = require('./server.js');
 
 
 /* GET home page. */
@@ -22,9 +24,41 @@ router.get('/', function(req, res, next) {
   res.render('index', { 
     title: 'Express',
     message: message,
-    loggedin: req.session.loggedin
+    loggedin: req.session.loggedin,
+    revisited: false
     });
 });
+
+////////////////////////////////////
+////////////////POST////////////////
+////////////////////////////////////
+router.post('/', function(req, res) {
+    var startLocation = req.body.startPoint;
+    var endLocation = req.body.endPoint;
+
+    console.log("************************")
+    console.log(googleMapsServer.getData(startLocation,endLocation));
+    console.log("************************")
+
+
+    res.render('index', { 
+        title: 'Express',
+        message: '',
+        loggedin: req.session.loggedin,
+        revisited: true
+        // startPoint: req.session.startPoint,
+        // endPoint: req.session.endPoint
+    });
+    
+
+
+
+
+    // var originInput = startLocation; // Need google to parse
+    // var destinationInput = endLocation; // Need google to parse
+
+});
+
 router.post('/processRegister', function(req,res){
     // console.log(req.session)
     var username = req.body.username

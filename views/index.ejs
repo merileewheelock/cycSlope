@@ -2,6 +2,10 @@
 <html>
 <head>
 	<title>cycSlope</title>
+	<script type="text/javascript">
+		var revisited = <%= revisited %>
+		console.log(revisited)
+	</script>
 
 	<% include head %>
 </head>
@@ -20,14 +24,16 @@
 				<div class="col-xs-12 text-center logo">
 					<img src="../images/cycSlope_white.png" width="450px" />
 				</div>
-				<div class="col-xs-12 search-area">
-					<div class="col-xs-8 col-xs-offset-2 text-center">
-						<input class="search-bar" type="text" placeholder="Start" />
-						<input class="search-bar" type="text" placeholder="End" />
-					</div>
-				</div>
-				<div class="col-xs-12 text-center">
-					<button class="btn-lg btn-default go-button">Let's Ride</button>
+				<div class="col-xs-12 text-center search-area">
+					<form action="/" method="post">
+						<div>
+							<input class="search-bar" id="start-search" name="startPoint" type="text" placeholder="Start" />
+							<input class="search-bar" id="end-search" name="endPoint" type="text" placeholder="End" />
+						</div>
+						<div>
+							<button class="btn-lg btn-default go-button" type="submit">Let's Ride</button>
+						</div>
+					</form>	
 				</div>
 
 				<video id="bgvid" playsinline autoplay muted>

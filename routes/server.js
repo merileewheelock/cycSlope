@@ -14,7 +14,8 @@ var serveStatic = require('serve-static');
          `"`         `"`    */
 
 
-connect().use(serveStatic(__dirname)).listen(8000, function(){
+// var googleMapsServer = connect().use(serveStatic(__dirname)).listen(8000, function(){
+// connect().use(serveStatic(__dirname)).listen(8000, function(){});
 
 	////// API KEYS //////
 
@@ -41,12 +42,9 @@ connect().use(serveStatic(__dirname)).listen(8000, function(){
 	console.log("--- Directions API Request URL ---")
 	console.log(directionsUrl);
 	console.log("=======================================")
-
-
-
 	////// FUNCTION - Elevation API Request //////
 
-	function getElevation(encodedPolyline) {
+	getElevation = function(encodedPolyline) {
 
 		const elevationApiBaseUrl = "https://maps.googleapis.com/maps/api/elevation/";
 
@@ -64,10 +62,10 @@ connect().use(serveStatic(__dirname)).listen(8000, function(){
 
 		request.get(elevationUrl,(error,response,elevationData)=>{
 			elevationData = JSON.parse(elevationData);
-			console.log("=======================================");
-			console.log("--- Elevation Data ---");
-			console.log("=======================================");
-			console.log(elevationData);
+			// console.log("=======================================");
+			// console.log("--- Elevation Data ---");
+			// console.log("=======================================");
+			// console.log(elevationData);
 		});
 
 	};
@@ -76,11 +74,10 @@ connect().use(serveStatic(__dirname)).listen(8000, function(){
 
 	///////// FUNCTION - Static Map API Request /////////
 
-	function drawStaticMap(encodedPolyline) {
-
+	drawStaticMap = function (encodedPolyline) {
 		const mapApiBaseUrl = "https://maps.googleapis.com/maps/api/staticmap?";
 
-		var size = "400x400";
+		var size = "320x320";
 		var mapType = "terrain";
 		var path = encodedPolyline;
 
@@ -90,17 +87,16 @@ connect().use(serveStatic(__dirname)).listen(8000, function(){
 		console.log("--- Map URL ---");
 		console.log("=======================================");
 		console.log(mapApiUrl);
-
-	}
-
+		return mapApiUrl;
+	};
 
 
 	//////////// MAIN FUNCTION - API REQUESTS ////////////
-
-	function getData(originInput, destinationInput) {
-
+var googleMapsServer = {
+	getData: function(originInput, destinationInput) {
 
 		////// Directions API Request //////
+		const directionsUrl = `${directionsApiBaseUrl}${outputFormat}?origin=${originInput}&destination=${destinationInput}&mode=${mode}&alternatives=${alternatives}&key=${apiKey}`
 
 		request.get(directionsUrl,(error,response,directionsData)=>{
 			directionsData = JSON.parse(directionsData);
@@ -108,7 +104,7 @@ connect().use(serveStatic(__dirname)).listen(8000, function(){
 			encodedPolyline = directionsData.routes[0].overview_polyline.points
 
 			for (let i = 0; i < directionsData.routes.length; i++) {
-				// console.log(directionsData)
+				console.log(directionsData)
 				console.log("=======================================")
 				console.log("--- Encoded Polyline Route Summary ---")
 				console.log("=======================================")
@@ -122,19 +118,18 @@ connect().use(serveStatic(__dirname)).listen(8000, function(){
 
 			///// Static Map API Request //////
 
-			drawStaticMap(encodedPolyline);
-
+			return drawStaticMap(encodedPolyline);
 		});
-	};
-
+	}
+}
 
 
 	//////////// EXECUTE CODE ////////////
 
-	getData(originInput,destinationInput);
+	// getData(originInput,destinationInput);
 
 	//////////////////////////////////////
 
-});
+// });
 
-module.exports = #
+module.exports = googleMapsServer;
