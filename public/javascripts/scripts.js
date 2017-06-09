@@ -1,11 +1,15 @@
 $(document).ready(function(){
+	var startLocation = $('#start-search').val();
+	var endLocation = $('#end-search').val();
+	console.log(startLocation);
+	console.log(endLocation);
  	if (revisited == true){
 		// $('.go-button').click(function(){
 			// event.preventDefault();
-			var startLocation = $('#start-search').val();
-			var endLocation = $('#end-search').val();
-			console.log(startLocation);
-			console.log(endLocation);
+			// var startLocation = $('#start-search').val();
+			// var endLocation = $('#end-search').val();
+			// console.log(startLocation);
+			// console.log(endLocation);
 		// });
 		
 		// $('.go-button').click(function(){

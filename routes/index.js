@@ -33,11 +33,15 @@ router.get('/', function(req, res, next) {
 ////////////////POST////////////////
 ////////////////////////////////////
 router.post('/', function(req, res) {
-    var startLocation = req.body.startPoint;
-    var endLocation = req.body.endPoint;
+
+    var originInput = req.body.startPoint;
+    var destinationInput = req.body.endPoint;
+
+    console.log("Start point: " + originInput);
+    console.log("End point: " + destinationInput);
 
     console.log("************************")
-    console.log(googleMapsServer.getData(startLocation,endLocation));
+    console.log(googleMapsServer.getData(originInput,destinationInput));
     console.log("************************")
 
 
@@ -49,14 +53,6 @@ router.post('/', function(req, res) {
         // startPoint: req.session.startPoint,
         // endPoint: req.session.endPoint
     });
-    
-
-
-
-
-    // var originInput = startLocation; // Need google to parse
-    // var destinationInput = endLocation; // Need google to parse
-
 });
 
 router.post('/processRegister', function(req,res){

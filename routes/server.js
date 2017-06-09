@@ -18,7 +18,7 @@ var serveStatic = require('serve-static');
 // connect().use(serveStatic(__dirname)).listen(8000, function(){});
 
 	////// API KEYS //////
-
+ 
 	const apiKey = "AIzaSyCw-7myXeFy8Cgkj5rEaeHH0jmFl4qokN8";
 	const mapApiKey = "AIzaSyBNq7VB2xLpcXxs5L81XXZHgzeY_E22dX8";
 
@@ -30,8 +30,10 @@ var serveStatic = require('serve-static');
 
 	// Make sure the origin and destination format is correct, else send an error message. 
 
-	var originInput = "3406+Woodshire+Crossing+Marietta+GA";
-	var destinationInput = "3930+Shallowford+Road+Marietta+GA";
+	// var originInput = "3406+Woodshire+Crossing+Marietta+GA";
+	// var destinationInput = "3930+Shallowford+Road+Marietta+GA";
+	var originInput;
+	var destinationInput;
 	var outputFormat = 'json';
 	var mode = 'bicycling';
 	var alternatives = 'true';
