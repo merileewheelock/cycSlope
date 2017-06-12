@@ -116,7 +116,7 @@ router.post('/processLogin', function(req,res){
         if(results.length == 1){
             if (password == results[0].password){
                 req.session.loggedin = true;
-                req.session.name = results.name;
+                req.session.username = results.username;
                 req.session.email = results.email;
                 req.session.id = results.id;
                 console.log('++++++++++++++++++++++++++')
@@ -132,8 +132,26 @@ router.post('/processLogin', function(req,res){
     });
 });
 router.get('/profile', function(req,res){
-    res.render('profile', {
-        loggedin: req.session.loggedin,
-    });
+    var id = req.session.id
+    var username = req.session.username;
+    var email = req.session.email;
+    var password = req.session.password;
+    var firstName = req.session.firstName;
+    var gender = req.session.gender;
+    var selectQuery = "SELECT * FROM userInfo";
+    connection.query(selectQuery,[username,email,password,firstName,gender], function(error,results){
+        // console.log('++++++++++++++++++++++++++')
+        // console.log(results[0].username)
+        // console.log('++++++++++++++++++++++++++')
+
+        res.render('profile', {
+            loggedin: req.session.loggedin,
+            firstName: results[0].firstName,
+            email: results[0].email,
+            username: results[0].username,
+            gender: results[0].gender
+        });
+    })
+
 });
 module.exports = router;
