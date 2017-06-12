@@ -13,8 +13,6 @@ var connection = mysql.createConnection({
     database: config.sql.database
 });
 var googleMapsServer = require('./server.js');
-
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
     var message = req.query.msg;
@@ -28,35 +26,31 @@ router.get('/', function(req, res, next) {
     revisited: false
     });
 });
-
 ////////////////////////////////////
 ////////////////POST////////////////
 ////////////////////////////////////
 router.post('/', function(req, res) {
-
     var originInput = req.body.startPoint;
     var destinationInput = req.body.endPoint;
-
     console.log("Start point: " + originInput);
     console.log("End point: " + destinationInput);
-
     console.log("************************")
-    console.log(googleMapsServer.getData(originInput,destinationInput));
+    // console.log(googleMapsServer.getData(originInput,destinationInput));
+    console.log(googleMapsServer.drawChart);
     console.log("************************")
-
-
     res.render('index', { 
         title: 'Express',
         message: '',
         loggedin: req.session.loggedin,
         revisited: true
+        // startPoint: req.session.startPoint,
+        // endPoint: req.session.endPoint
     });
 });
-
 router.post('/processRegister', function(req,res){
     // console.log(req.session)
     var username = req.body.username
-    var name = req.body.name
+    var firstName = req.body.firstName
     var email = req.body.email
     var gender = req.body.gender
     var password = req.body.password
@@ -68,13 +62,14 @@ router.post('/processRegister', function(req,res){
         console.log('-------------')
         console.log(results);
         if(results.length == 0){
-            var insertQuery = "INSERT INTO userInfo (username,email,password) VALUES (?,?,?)";
-            connection.query(insertQuery,[username,email,password], function(error,results){
+            var insertQuery = "INSERT INTO userInfo (username,email,password,firstName,gender) VALUES (?,?,?,?,?)";
+            connection.query(insertQuery,[username,email,password,firstName,gender], function(error,results){
                 // console.log("================");
                 // console.log(req.session);
                 // console.log("================");
-                req.session.name = username;
+                req.session.username = username;
                 req.session.email = email;
+                req.session.firstName = firstName;
                 req.session.loggedin = true;
                 res.redirect('/?msg=registered')
             });
@@ -104,8 +99,7 @@ router.post('/processLogin', function(req,res){
 });
 router.get('/profile', function(req,res){
     res.render('profile', {
-        loggedin: req.session.loggedin
+        loggedin: req.session.loggedin,
     });
 });
-
 module.exports = router;
