@@ -109,6 +109,27 @@ a {
     color: red;
 }
 
+/* --------REGISTER-MODAL-------- */
+
+.input-section{
+	display: block;
+}
+
+.section-header{
+	text-align: left;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 50%;
+}
+
+.section-form{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+input{
+	width: 50%;
+}
 
 /* --------RESULTS-VIEW-------- */
 

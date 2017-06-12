@@ -4,28 +4,36 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Register</h4>
+                <h4 class="modal-title" id="myModalLabel">Sign Up</h4>
             </div>
             <form action="/processRegister" method="post">
                 <div class="modal-body">
                     <div class="row text-center">
-                        <div class="col-sm-12 text-center">
-                            <h1>Sign Up</h1>
+                        <div class="col-sm-12 red-text text-center">
+                            <% if(typeof(message != 'undefined')){ %>
+                                <h3><%=message%></h3>
+                            <% } %> 
                         </div>
-                    <div class="col-sm-12 red-text text-center">
-                        <% if(typeof(message != 'undefined')){ %>
-                            <h3><%=message%></h3>
-                        <% } %> 
-                    </div>
                        
-                        <div class="col-sm-12">
-                            <input type="text" name="username" placeholder="Enter your name">
+                        <div class="col-sm-12 input-section">
+                            <div class="section-header col-xs-8 col-xs-offset-2">Name:</div>
+                            <div class="section-form">
+                                <input type="text" name="username" placeholder="Enter your name">
+                            </div>
                         </div>
-                        <div class="col-sm-12">
-                            <input type="email" name="email" placeholder="Enter your email">
+
+                        <div class="col-sm-12 input-section">
+                            <div class="section-header col-xs-8 col-xs-offset-2">Email:</div>
+                            <div class="section-form">
+                                <input type="text" name="email" placeholder="Enter your email">
+                            </div>
                         </div>
-                        <div class="col-sm-12">
-                            <input type="password" name="password" placeholder="Enter your password">
+
+                        <div class="col-sm-12 input-section">
+                            <div class="section-header col-xs-8 col-xs-offset-2">Password:</div>
+                            <div class="section-form">
+                                <input type="text" name="password" placeholder="Enter a password">
+                            </div>
                         </div>
                     </div>
                 </div>
