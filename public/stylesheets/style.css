@@ -138,13 +138,27 @@ input{
 	height: 500px;
 }
 
+.carousel-inner{
+	text-align: center;
+}
+
+.map-div{
+	display: inline-block;
+}
+
+.carousel-caption, .carousel-caption ul{
+	position: initial;
+	padding: 0px;
+}
+
 .carousel-list{
 	list-style: none;
-	/* display: inline; */
+	margin: 0px 20px;
 }
 
 .caption{
-	color: black;
+	margin-top: 20px;
+	font-size: 18px;
 }
 
 .map{
@@ -152,10 +166,9 @@ input{
 	margin: 5px;
 }
 
-#chart_div {
-	text-align: center;
+#chart1_div {
+	display: inline-block;
 }
-
 
 /* --------PROFILE VIEW-------- */
 
