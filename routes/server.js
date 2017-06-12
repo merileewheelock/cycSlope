@@ -40,30 +40,32 @@ var serveStatic = require('serve-static');
 	////// FUNCTION - Elevation API Request //////
 
 	getElevation = function(encodedPolyline) {
+		return new Promise((resolve, reject) => {		
 
-		const elevationApiBaseUrl = "https://maps.googleapis.com/maps/api/elevation/";
+			const elevationApiBaseUrl = "https://maps.googleapis.com/maps/api/elevation/";
 
-		// Later, see if you can figure out how to pass an array of paths. Also adjust the sample rate if needed as well.
+			// Later, see if you can figure out how to pass an array of paths. Also adjust the sample rate if needed as well.
 
-		var outputFormat = 'json';
-		var path = encodedPolyline;
-		var samples = 128;
+			var outputFormat = 'json';
+			var path = encodedPolyline;
+			var samples = 128;
 
-		const elevationUrl =`${elevationApiBaseUrl}${outputFormat}?path=enc:${path}&samples=${samples}&key=${apiKey}`
+			const elevationUrl =`${elevationApiBaseUrl}${outputFormat}?path=enc:${path}&samples=${samples}&key=${apiKey}`
 
-		console.log("=======================================");
-		console.log("--- Elevation URL ---");
-		console.log("=======================================");
-		console.log(elevationUrl);
+			// console.log("=======================================");
+			// console.log("--- Elevation URL ---");
+			// console.log("=======================================");
+			// console.log(elevationUrl);
 
-		request.get(elevationUrl,(error,response,elevationData)=>{
-			elevationData = JSON.parse(elevationData);
-			console.log("=======================================");
-			console.log("--- Elevation Data ---");
-			console.log("=======================================");
-			console.log(elevationData);
+			request.get(elevationUrl,(error,response,elevationData)=>{
+				elevationData = JSON.parse(elevationData);
+				resolve(elevationData);
+				// console.log("=======================================");
+				// console.log("--- Elevation Data ---");
+				// console.log("=======================================");
+				// console.log(elevationData);
+			});
 		});
-
 	};
 
 
@@ -121,7 +123,7 @@ var serveStatic = require('serve-static');
 					console.log(encodedPolyline)
 				}
 				// Promise conditions //
-				if (error) reject (error);
+				if (error) reject(error);
 				else resolve(directionsData);				
 			})
 		})
@@ -153,24 +155,21 @@ var serveStatic = require('serve-static');
 
 
 		getData: function(originInput, destinationInput) {
-
-
-			getDirections(originInput, destinationInput).then(
-				function(){
-					getElevation(encodedPolyline)
-				},
-				function(error){
-					console.log(error)
-				}
-			).then(
-				function(){
-					drawStaticMap(encodedPolyline)
-				},
-				function(error){
-					console.log(error)
-				}
-			)
-
+            var mapDetails = {};
+            return new Promise((resolve, reject) => {
+                getDirections(originInput, destinationInput).then(
+                    function(directionsData){
+                    	mapDetails.directionsData = directionsData;
+                        getElevation(encodedPolyline).then(
+		                    function(elevationData){
+		                    	mapDetails.elevationData = elevationData;
+		                        mapDetails.staticMap = drawStaticMap(encodedPolyline)
+		                        resolve(mapDetails);
+		                    }                        	
+                        )
+                    }
+                )
+        	});
 		}
 	}
 

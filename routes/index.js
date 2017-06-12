@@ -27,6 +27,9 @@ router.get('/', function(req, res, next) {
     message: message,
     loggedin: req.session.loggedin,
     revisited: false,
+    mapApiUrl: '',
+    elevationData: ''
+
     });
 });
 
@@ -45,24 +48,35 @@ router.post('/', function(req, res) {
     // console.log(googleMapsServer.getData(originInput,destinationInput));
     // console.log("************************")
 
-    var rawData = googleMapsServer.getData(originInput,destinationInput);
+    var finalDest = googleMapsServer.getData(originInput,destinationInput);
 
-    console.log("************************")
-    // setTimeout(function(){ 
-    //     console.log(mapApiUrl); 
-    // }, 5000);
-    console.log("************************")
+    console.log("***********************")
+    console.log(finalDest)
+    console.log("***********************")
 
-    res.render('index', { 
-        title: 'Express',
-        message: '',
-        loggedin: req.session.loggedin,
-        revisited: true,
-        mapApiUrl: 'https://maps.googleapis.com/maps/api/staticmap?size=320x320&maptype=terrain&path=enc:kq~lEt~`bOrtD{`@ruFc}A`{EuRthE{CzwIaVp|MmcCvgPqnDfwBiqAdjEod@x|Gk^bbGcoAlgAkhErbBurBlyCua@v_Cq_AnzA_{@fo@qqGro@qgDtqEstD~nEc`Dl_DilAzX~|@fg@~r@ljB_BlyCyg@rv@azBlt@qcFf_Do`HbaEyjFx_CoiChaEaxAhzAas@juCaoFvgAmvCf`C~Jt{C}MhdCcsA|}@cuExqBxOleAg~@hxAjuAj|BuvAttDiw@~oAec@jfAy_DxHkrBvx@s}BreGccDzqG{Gv}ErQjmAqcAvdAsaFrkLw|Gr_Ky~EbrGgzEpqCk|Bt{@c{@t`AtOldDgRfzB}u@zaMe}FpoSqeKtvFwmHffBm\h`OacKdkJqqEndCkgDxaAusBzpCub@dbI{_EnqBx]roAjRxt@wuAjd@omCzDsaBpLe~AfzBmhFdgDuwFxqDgkFz_Pk_OrcC}}CpqEcnN|zJw{Op_O{eRhdK_bK`sJwbc@nrIutH~|OkwRxcNyqJveH}rBffGgrHdnEgnGjaC}_BfKmsBugAi`E|NwgClcFu`PvF{yKnnCinKfvAabCz}FlEv|Qa`O|zB_xQm_Ak_GljCk|B~fAv|@rqCaYdtAa^p~Agg@|gDpsAn}CwfBz}CydA~|BiqAxzBoGrhDnmCfa@}Ynt@pc@d`EyyCl|A`GxKkgBhnB{Sv_IedApd_@}gGldY{kEddGwvAp`Al{AttAj_@le@{VluC_iDxtRo{DvjV{`HjaG_m@lsGm|ChkJg{EpiF_qBfdJwaDdoJe}B`cEqbC~lDyuA|y@byAfdA_e@zoC{bAxzDu_A~oEgnB~yAfW~`@z_A`zBut@hiDiiB`kBugD~nDs{BfkGwhDtoQgwG~{RieFrfHxbGdsNqkCrlNyfFzoCa`BzyDa}@h_LgvA~mJeeC`bQu}Dn}H{`ArhE}Dh{@qkCp_Fi|B~dJ}g@riAcT`@o}CpdD{xBga@g_D`fAmv@llFo{AxvHmbEb}M{mFrcYynMrp^mvLrbJi`BthOuiE|pCaw@jcBvMj_AhlA`aB``A|_HuO`vLEd}JgbEjiKqiEtqFiqC`_HmgE~tH_nJpqCubAgBqpCnqJmrCltH_}@ddBjpAllG~G~_Aru@ngBjBtyCbEjnBbCrdGtHbsH`PlmBrCnn@jt@kGjrGsBnnChw@l|A``EfHvfDrE`bQvJrjQ_Fbl_@iOpcSnI`ai@~MvzAml@fv@}pApk@or@bzCid@xmE`mCz`J~b@~pKur@&key=AIzaSyBNq7VB2xLpcXxs5L81XXZHgzeY_E22dX8'
-        // startPoint: req.session.startPoint,
-        // endPoint: req.session.endPoint
-    });
+    finalDest.then(
+        function(mapDetails){
+            console.log("***********************")
+            // res.json(mapDetails);
+            console.log("***********************")
+            res.render('index', { 
+                title: 'Express',
+                message: '',
+                loggedin: req.session.loggedin,
+                revisited: true,
+                // mapApiUrl: encodeURI(mapApiUrl).split('\\').join('\\')
+                // mapApiUrl: encodeURI(mapApiUrl).replace(/\\\//g, "/")
+                mapApiUrl: encodeURI(mapDetails.staticMap),
+                elevationData: mapDetails.elevationData
+            });
+        });
 });
+
+router.get('/logout', function(req,res){
+    req.session.loggedin = false;
+    res.redirect('/')
+});
+
 router.post('/processRegister', function(req,res){
     // console.log(req.session)
     var username = req.body.username
@@ -104,6 +118,10 @@ router.post('/processLogin', function(req,res){
                 req.session.loggedin = true;
                 req.session.name = results.name;
                 req.session.email = results.email;
+                req.session.id = results.id;
+                console.log('++++++++++++++++++++++++++')
+                console.log(req.session.id)
+                console.log('++++++++++++++++++++++++++')
                 res.redirect('/?msg=loggedin')
             }else{
                 res.redirect('/login?msg=badPass')
