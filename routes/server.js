@@ -33,7 +33,7 @@ var serveStatic = require('serve-static');
 	// var originInput = "3406+Woodshire+Crossing+Marietta+GA";
 	// var destinationInput = "3930+Shallowford+Road+Marietta+GA";
 	var originInput = "Atlanta";
-	var destinationInput = "Chattanooga"
+	var destinationInput = "Chattanooga";
 	var encodedPolyline;
 
 
@@ -173,5 +173,6 @@ var serveStatic = require('serve-static');
 
 		}
 	}
+
 
 module.exports = googleMapsServer;
