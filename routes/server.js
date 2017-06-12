@@ -28,22 +28,15 @@ var serveStatic = require('serve-static');
 
 	const directionsApiBaseUrl = 'https://maps.googleapis.com/maps/api/directions/';
 
-	// Make sure the origin and destination format is correct, else send an error message. 
+
 
 	// var originInput = "3406+Woodshire+Crossing+Marietta+GA";
 	// var destinationInput = "3930+Shallowford+Road+Marietta+GA";
-	var originInput;
-	var destinationInput;
-	var outputFormat = 'json';
-	var mode = 'bicycling';
-	var alternatives = 'true';
+	var originInput = "Atlanta";
+	var destinationInput = "Chattanooga"
+	var encodedPolyline;
 
-	const directionsUrl = `${directionsApiBaseUrl}${outputFormat}?origin=${originInput}&destination=${destinationInput}&mode=${mode}&alternatives=${alternatives}&key=${apiKey}`
 
-	console.log("=======================================")
-	console.log("--- Directions API Request URL ---")
-	console.log(directionsUrl);
-	console.log("=======================================")
 	////// FUNCTION - Elevation API Request //////
 
 	getElevation = function(encodedPolyline) {
@@ -52,7 +45,8 @@ var serveStatic = require('serve-static');
 
 		// Later, see if you can figure out how to pass an array of paths. Also adjust the sample rate if needed as well.
 
-		var path = encodedPolyline
+		var outputFormat = 'json';
+		var path = encodedPolyline;
 		var samples = 128;
 
 		const elevationUrl =`${elevationApiBaseUrl}${outputFormat}?path=enc:${path}&samples=${samples}&key=${apiKey}`
@@ -76,7 +70,7 @@ var serveStatic = require('serve-static');
 
 	///////// FUNCTION - Static Map API Request /////////
 
-	drawStaticMap = function (encodedPolyline) {
+	drawStaticMap = function(encodedPolyline) {
 		const mapApiBaseUrl = "https://maps.googleapis.com/maps/api/staticmap?";
 
 		var size = "320x320";
@@ -93,46 +87,91 @@ var serveStatic = require('serve-static');
 	};
 
 
+	///////// FUNCTION - Directions API Request /////////
 
-	//////////// MAIN FUNCTION - API REQUESTS ////////////
-var googleMapsServer = {
-	getData: function(originInput, destinationInput) {
+	getDirections = function(originInput, destinationInput) {
 
-		////// Directions API Request //////
-		const directionsUrl = `${directionsApiBaseUrl}${outputFormat}?origin=${originInput}&destination=${destinationInput}&mode=${mode}&alternatives=${alternatives}&key=${apiKey}`
+		return new Promise((resolve, reject) => {		
 
-		request.get(directionsUrl,(error,response,directionsData)=>{
-			directionsData = JSON.parse(directionsData);
+			const directionsApiBaseUrl = 'https://maps.googleapis.com/maps/api/directions/';
 
-			encodedPolyline = directionsData.routes[0].overview_polyline.points
+			var outputFormat = 'json';
+			var mode = 'bicycling';
+			var alternatives = 'true';
 
-			for (let i = 0; i < directionsData.routes.length; i++) {
-				console.log(directionsData)
-				console.log("=======================================")
-				console.log("--- Encoded Polyline Route Summary ---")
-				console.log("=======================================")
-				console.log(encodedPolyline)
-			}
+			const directionsUrl = `${directionsApiBaseUrl}${outputFormat}?origin=${originInput}&destination=${destinationInput}&mode=${mode}&alternatives=${alternatives}&key=${apiKey}`
 
-			///// Elevation API Request //////
+			// Make sure the origin and destination format is correct, else send an error message. 
 
-			getElevation(encodedPolyline);
+			console.log("=======================================")
+			console.log("--- Directions API Request URL ---")
+			console.log("=======================================")
+			console.log(directionsUrl);
+
+			request.get(directionsUrl,(error,response,directionsData)=>{
+				directionsData = JSON.parse(directionsData);
+
+				encodedPolyline = directionsData.routes[0].overview_polyline.points
+
+				for (let i = 0; i < directionsData.routes.length; i++) {
+					console.log(directionsData)
+					console.log("=======================================")
+					console.log("--- Encoded Polyline Route Summary ---")
+					console.log("=======================================")
+					console.log(encodedPolyline)
+				}
+				// Promise conditions //
+				if (error) reject (error);
+				else resolve(directionsData);				
+			})
+		})
+	};
 
 
-			///// Static Map API Request //////
+	// getDirections(originInput, destinationInput).then(
+	// 	function(){
+	// 		getElevation(encodedPolyline)
+	// 	},
+	// 	function(error){
+	// 		console.log(error)
+	// 	}
+	// ).then(
+	// 	function(){
+	// 		drawStaticMap(encodedPolyline)
+	// 	},
+	// 	function(error){
+	// 		console.log(error)
+	// 	}
+	// )
 
-			return drawStaticMap(encodedPolyline);
-		});
+
+
+	var googleMapsServer = {
+
+
+		//////////// MAIN FUNCTION - API REQUESTS ////////////
+
+
+		getData: function(originInput, destinationInput) {
+
+
+			getDirections(originInput, destinationInput).then(
+				function(){
+					getElevation(encodedPolyline)
+				},
+				function(error){
+					console.log(error)
+				}
+			).then(
+				function(){
+					drawStaticMap(encodedPolyline)
+				},
+				function(error){
+					console.log(error)
+				}
+			)
+
+		}
 	}
-}
-
-
-	//////////// EXECUTE CODE ////////////
-
-	// getData(originInput,destinationInput);
-
-	//////////////////////////////////////
-
-// });
 
 module.exports = googleMapsServer;
