@@ -1,4 +1,16 @@
 $(document).ready(function(){
+
+	// $('.go-button').click(function(){
+	// 	// $('.error').each(function(){
+	// 	// 	$(this).html('');
+	// 	// })
+	// 	// $('.search-bar').each(function(){
+	// 		if(($('#start-search').val()) || ($('#end-search').val()) == null){
+	// 			$('.error').html("Please enter a start and end location")
+	// 		}
+	// 	// });
+	// });
+
 	var startLocation = $('#start-search').val();
 	var endLocation = $('#end-search').val();
 	console.log(startLocation);

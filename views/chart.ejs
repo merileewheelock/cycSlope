@@ -11,31 +11,7 @@
         google.charts.setOnLoadCallback(drawChart);
     //// (Temprorary) ELEVATION DATA ////
     // Note: Hardcoded for now to create a working example of elevation chart, but in actual code we will need to pass in elevation data from elevation API.
-        var elevationData = {
-            results: 
-                [ { elevation: 334.7861633300781,
-                    location: [Object],
-                    resolution: 9.543951988220215 },
-                { elevation: 333.6427001953125,
-                    location: [Object],
-                    resolution: 9.543951988220215 },
-                { elevation: 332.9590148925781,
-                    location: [Object],
-                    resolution: 9.543951988220215 },
-                { elevation: 331.7027893066406,
-                    location: [Object],
-                    resolution: 9.543951988220215 },
-                { elevation: 330.900390625,
-                    location: [Object],
-                    resolution: 9.543951988220215 },
-                { elevation: 332.2341613769531,
-                    location: [Object],
-                    resolution: 9.543951988220215 },
-                { elevation: 332.9743957519531,
-                    location: [Object],
-                    resolution: 9.543951988220215 }
-                ]
-        }
+        var elevationData = <%- JSON.stringify(elevationData) %>
     // Callback that creates and populates a data table, instantiates the chart, passes the data, and draws the chart.
         function drawChart() {
         // Create the data table.

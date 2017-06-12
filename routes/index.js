@@ -13,40 +13,70 @@ var connection = mysql.createConnection({
     database: config.sql.database
 });
 var googleMapsServer = require('./server.js');
+var mapApiUrl;
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
     var message = req.query.msg;
     if (message == 'badEmailRegister'){
         message = 'This email is already in use'
     }
+
   res.render('index', { 
     title: 'Express',
     message: message,
     loggedin: req.session.loggedin,
-    revisited: false
+    revisited: false,
+    mapApiUrl: '',
+    elevationData: ''
+
     });
 });
+
 ////////////////////////////////////
 ////////////////POST////////////////
 ////////////////////////////////////
 router.post('/', function(req, res) {
     var originInput = req.body.startPoint;
     var destinationInput = req.body.endPoint;
+    // var mapApiUrl;
+
     console.log("Start point: " + originInput);
     console.log("End point: " + destinationInput);
-    console.log("************************")
+    
+    // console.log("************************")
     // console.log(googleMapsServer.getData(originInput,destinationInput));
-    console.log(googleMapsServer.drawChart);
-    console.log("************************")
-    res.render('index', { 
-        title: 'Express',
-        message: '',
-        loggedin: req.session.loggedin,
-        revisited: true
-        // startPoint: req.session.startPoint,
-        // endPoint: req.session.endPoint
-    });
+    // console.log("************************")
+
+    var finalDest = googleMapsServer.getData(originInput,destinationInput);
+
+    console.log("***********************")
+    console.log(finalDest)
+    console.log("***********************")
+
+    finalDest.then(
+        function(mapDetails){
+            console.log("***********************")
+            // res.json(mapDetails);
+            console.log("***********************")
+            res.render('index', { 
+                title: 'Express',
+                message: '',
+                loggedin: req.session.loggedin,
+                revisited: true,
+                // mapApiUrl: encodeURI(mapApiUrl).split('\\').join('\\')
+                // mapApiUrl: encodeURI(mapApiUrl).replace(/\\\//g, "/")
+                mapApiUrl: encodeURI(mapDetails.staticMap),
+                elevationData: mapDetails.elevationData
+            });
+        });
 });
+
+router.get('/logout', function(req,res){
+    req.session.loggedin = false;
+    res.redirect('/')
+});
+
 router.post('/processRegister', function(req,res){
     // console.log(req.session)
     var username = req.body.username
@@ -86,8 +116,12 @@ router.post('/processLogin', function(req,res){
         if(results.length == 1){
             if (password == results[0].password){
                 req.session.loggedin = true;
-                req.session.name = results.name;
+                req.session.username = results.username;
                 req.session.email = results.email;
+                req.session.id = results.id;
+                console.log('++++++++++++++++++++++++++')
+                console.log(req.session.id)
+                console.log('++++++++++++++++++++++++++')
                 res.redirect('/?msg=loggedin')
             }else{
                 res.redirect('/login?msg=badPass')
@@ -98,8 +132,26 @@ router.post('/processLogin', function(req,res){
     });
 });
 router.get('/profile', function(req,res){
-    res.render('profile', {
-        loggedin: req.session.loggedin,
-    });
+    var id = req.session.id
+    var username = req.session.username;
+    var email = req.session.email;
+    var password = req.session.password;
+    var firstName = req.session.firstName;
+    var gender = req.session.gender;
+    var selectQuery = "SELECT * FROM userInfo";
+    connection.query(selectQuery,[username,email,password,firstName,gender], function(error,results){
+        // console.log('++++++++++++++++++++++++++')
+        // console.log(results[0].username)
+        // console.log('++++++++++++++++++++++++++')
+
+        res.render('profile', {
+            loggedin: req.session.loggedin,
+            firstName: results[0].firstName,
+            email: results[0].email,
+            username: results[0].username,
+            gender: results[0].gender
+        });
+    })
+
 });
 module.exports = router;
