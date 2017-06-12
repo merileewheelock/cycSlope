@@ -64,10 +64,10 @@ var serveStatic = require('serve-static');
 
 		request.get(elevationUrl,(error,response,elevationData)=>{
 			elevationData = JSON.parse(elevationData);
-			// console.log("=======================================");
-			// console.log("--- Elevation Data ---");
-			// console.log("=======================================");
-			// console.log(elevationData);
+			console.log("=======================================");
+			console.log("--- Elevation Data ---");
+			console.log("=======================================");
+			console.log(elevationData);
 		});
 
 	};
