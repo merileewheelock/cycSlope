@@ -161,7 +161,7 @@ input{
 	font-size: 18px;
 }
 
-.map{
+.map, .elev-chart{
 	border: 2px solid black;
 	margin: 5px;
 }
