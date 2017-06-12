@@ -1,0 +1,62 @@
+        
+<!-- /////////////// DRAW CHART /////////////// -->
+        <!-- //Note: If we have enough time, add animation.  -->
+    <!-- // Load the AJAX API -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    // Load the Visualization API and the core chart package. 
+        // NOTE: If we want to go with material lines (which we probably do), load line package instead.
+        google.charts.load("current", {packages: ["corechart"]});
+    // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+    //// (Temprorary) ELEVATION DATA ////
+    // Note: Hardcoded for now to create a working example of elevation chart, but in actual code we will need to pass in elevation data from elevation API.
+        var elevationData = {
+            results: 
+                [ { elevation: 334.7861633300781,
+                    location: [Object],
+                    resolution: 9.543951988220215 },
+                { elevation: 333.6427001953125,
+                    location: [Object],
+                    resolution: 9.543951988220215 },
+                { elevation: 332.9590148925781,
+                    location: [Object],
+                    resolution: 9.543951988220215 },
+                { elevation: 331.7027893066406,
+                    location: [Object],
+                    resolution: 9.543951988220215 },
+                { elevation: 330.900390625,
+                    location: [Object],
+                    resolution: 9.543951988220215 },
+                { elevation: 332.2341613769531,
+                    location: [Object],
+                    resolution: 9.543951988220215 },
+                { elevation: 332.9743957519531,
+                    location: [Object],
+                    resolution: 9.543951988220215 }
+                ]
+        }
+    // Callback that creates and populates a data table, instantiates the chart, passes the data, and draws the chart.
+        function drawChart() {
+        // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('number', 'Sample');
+            data.addColumn('number', 'Elevation');
+            for (let i = 0; i < elevationData.results.length; i++) {
+                data.addRows([
+                    [i, elevationData.results[i].elevation]
+                ]);
+            };
+        
+        // Set chart options
+            var options = {'title':'Elevation',
+                'width':400,
+                'height':150
+            };
+        // Pass in options and instantiate chart
+            var chart = new google.visualization.LineChart(document.getElementById('chart1_div'));
+            // var chart = new google.visualization.LineChart(document.getElementById('chart2_div'));
+            // var chart = new google.visualization.LineChart(document.getElementById('chart3_div'));
+            chart.draw(data, options);
+        }
+    // </script>

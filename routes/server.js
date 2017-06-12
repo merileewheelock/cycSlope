@@ -93,6 +93,7 @@ var serveStatic = require('serve-static');
 	};
 
 
+
 	//////////// MAIN FUNCTION - API REQUESTS ////////////
 var googleMapsServer = {
 	getData: function(originInput, destinationInput) {

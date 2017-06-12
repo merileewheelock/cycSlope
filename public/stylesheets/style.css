@@ -152,6 +152,10 @@ input{
 	margin: 5px;
 }
 
+#chart_div {
+	text-align: center;
+}
+
 
 /* --------PROFILE VIEW-------- */
 
