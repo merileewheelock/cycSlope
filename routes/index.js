@@ -63,6 +63,12 @@ router.post('/', function(req, res) {
         // endPoint: req.session.endPoint
     });
 });
+
+router.get('/logout', function(req,res){
+    req.session.loggedin = false;
+    res.redirect('/')
+});
+
 router.post('/processRegister', function(req,res){
     // console.log(req.session)
     var username = req.body.username
@@ -104,9 +110,10 @@ router.post('/processLogin', function(req,res){
                 req.session.loggedin = true;
                 req.session.username = results.username;
                 req.session.email = results.email;
-                // console.log('++++++++++++++++++++++++++')
-                // console.log(results[0].username)
-                // console.log('++++++++++++++++++++++++++')
+                req.session.id = results.id;
+                console.log('++++++++++++++++++++++++++')
+                console.log(req.session.id)
+                console.log('++++++++++++++++++++++++++')
                 res.redirect('/?msg=loggedin')
             }else{
                 res.redirect('/login?msg=badPass')
@@ -117,6 +124,7 @@ router.post('/processLogin', function(req,res){
     });
 });
 router.get('/profile', function(req,res){
+    var id = req.session.id
     var username = req.session.username;
     var email = req.session.email;
     var password = req.session.password;
@@ -127,6 +135,7 @@ router.get('/profile', function(req,res){
         // console.log('++++++++++++++++++++++++++')
         // console.log(results[0].username)
         // console.log('++++++++++++++++++++++++++')
+
         res.render('profile', {
             loggedin: req.session.loggedin,
             firstName: results[0].firstName,
