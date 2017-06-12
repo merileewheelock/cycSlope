@@ -50,15 +50,15 @@ router.post('/', function(req, res) {
         message: '',
         loggedin: req.session.loggedin,
         revisited: true
-        // startPoint: req.session.startPoint,
-        // endPoint: req.session.endPoint
     });
 });
 
 router.post('/processRegister', function(req,res){
     // console.log(req.session)
     var username = req.body.username
+    var name = req.body.name
     var email = req.body.email
+    var gender = req.body.gender
     var password = req.body.password
     // console.log(username)
     // console.log(email)
