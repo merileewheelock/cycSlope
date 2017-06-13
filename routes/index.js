@@ -14,6 +14,7 @@ var connection = mysql.createConnection({
 });
 var googleMapsServer = require('./server.js');
 var mapApiUrl;
+var currentID = 0
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -102,7 +103,8 @@ router.post('/processRegister', function(req,res){
                 req.session.username = username;
                 req.session.email = email;
                 req.session.firstName = firstName;
-                req.session.loggedin = true;
+                // req.session.loggedin = true;
+                // currentId = results[0].id;
                 res.redirect('/?msg=registered')
             });
         }else{
@@ -118,11 +120,12 @@ router.post('/processLogin', function(req,res){
         if(results.length == 1){
             if (password == results[0].password){
                 req.session.loggedin = true;
-                req.session.username = results.username;
-                req.session.email = results.email;
-                req.session.id = results.id;
+                req.session.username = results[0].username;
+                req.session.email = results[0].email;
+                req.session.id = results[0].id;
+                currentID = results[0].id;
                 console.log('++++++++++++++++++++++++++')
-                console.log(req.session.id)
+                console.log(currentID)
                 console.log('++++++++++++++++++++++++++')
                 res.redirect('/?msg=loggedin')
             }else{
@@ -134,7 +137,7 @@ router.post('/processLogin', function(req,res){
     });
 });
 router.get('/profile', function(req,res){
-    var id = req.session.id
+    var id = req.session.id;
     var username = req.session.username;
     var email = req.session.email;
     var password = req.session.password;
@@ -142,18 +145,16 @@ router.get('/profile', function(req,res){
     var gender = req.session.gender;
     var selectQuery = "SELECT * FROM userInfo";
     connection.query(selectQuery,[username,email,password,firstName,gender], function(error,results){
-        // console.log('++++++++++++++++++++++++++')
-        // console.log(results[0].username)
-        // console.log('++++++++++++++++++++++++++')
-
+        console.log('++++++++++++++++++++++++++')
+        console.log(results[0].id);
+        console.log('++++++++++++++++++++++++++')
         res.render('profile', {
             loggedin: req.session.loggedin,
-            firstName: results[0].firstName,
-            email: results[0].email,
-            username: results[0].username,
-            gender: results[0].gender
+            firstName: results[currentID-1].firstName,
+            email: results[currentID-1].email,
+            username: results[currentID-1].username,
+            gender: results[currentID-1].gender
         });
     })
-
 });
 module.exports = router;
