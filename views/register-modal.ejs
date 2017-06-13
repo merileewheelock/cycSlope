@@ -36,11 +36,16 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 input-section">
-                            <div class="section-header col-xs-8 col-xs-offset-2">Gender:</div>
-                            <div class="section-form">
-                                <input type="text" name="gender" placeholder="Enter your gender">
-                            </div>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                Gender
+                                <span class="caret"></span>
+                            </button>
+                                <ul class="dropdown-menu">
+                                <li><a href="#">Male</a></li>
+                                <li><a href="#">Female</a></li>
+                                <li><a href="#">Unspecified</a></li>
+                            </ul>
                         </div>
 
                         <div class="col-sm-12 input-section">
@@ -54,7 +59,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button class="btn btn-success" type="submit">Submit</button>
+                    <button class="btn btn-success submit-button" type="submit">Submit</button>
                 </div>
             </form>
         </div>
