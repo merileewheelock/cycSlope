@@ -106,9 +106,9 @@ var serveStatic = require('serve-static');
 
 	drawStaticMap = function(encodedPolyline) {
 
-		// console.log("============================")
-		// console.log("Start Static Map Function")
-		// console.log("============================")
+		console.log("============================")
+		console.log("Start Static Map Function")
+		console.log("============================")
 
 		const mapApiBaseUrl = "https://maps.googleapis.com/maps/api/staticmap?";
 
@@ -125,10 +125,10 @@ var serveStatic = require('serve-static');
             mapApiUrl[i] = `${mapApiBaseUrl}size=${size}&maptype=${mapType}&path=enc:${path}&key=${mapApiKey}`
         }
 
-		// console.log("=======================================");
-		// console.log("--- Map URL ---");
-		// console.log("=======================================");
-		// console.log(mapApiUrl);
+		console.log("=======================================");
+		console.log("--- Map URL ---");
+		console.log("=======================================");
+		console.log(mapApiUrl);
 		return mapApiUrl;
 
 
@@ -151,24 +151,24 @@ var serveStatic = require('serve-static');
 
 			// Make sure the origin and destination format is correct, else send an error message. 
 
-			// console.log("=======================================")
-			// console.log("--- Directions API Request URL ---")
-			// console.log("=======================================")
-			// console.log(directionsUrl);
+			console.log("=======================================")
+			console.log("--- Directions API Request URL ---")
+			console.log("=======================================")
+			console.log(directionsUrl);
 
 			encodedPolyline = []
 
 			request.get(directionsUrl,(error,response,directionsData)=>{
 				directionsData = JSON.parse(directionsData);
 
-				// console.log(directionsData.routes)
+				console.log(directionsData.routes)
 
 
 				resultsCount = directionsData.routes.length;
 
 				var polylineCount = 0
 
-				// console.log(resultsCount)
+				console.log(resultsCount)
 
 				for (let i = 0; i < resultsCount; i++) {
 
@@ -180,17 +180,17 @@ var serveStatic = require('serve-static');
 					// console.log("=======================================")
 					// console.log(encodedPolyline)
 					polylineCount = polylineCount + 1
-					// console.log("Polyline Count =" + polylineCount)
-					// console.log("Results Count =" + resultsCount)
-					// console.log(directionsData)
+					console.log("Polyline Count =" + polylineCount)
+					console.log("Results Count =" + resultsCount)
+					console.log(directionsData)
 					if (polylineCount == resultsCount) {
 						resolve(directionsData);
 					}
 				}
 
-				// console.log("===== ENCODED POLYLINE =========")
-				// console.log(encodedPolyline)
-				// console.log("================================")
+				console.log("===== ENCODED POLYLINE =========")
+				console.log(encodedPolyline)
+				console.log("================================")
 				// Promise conditions //
 								
 			})
