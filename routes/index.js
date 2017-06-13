@@ -4,7 +4,7 @@ var request = require('request');
 var session = require('express-session');
 var config = require('../config/config');
 var connect = require('connect');
-// var bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt-nodejs');
 var mysql = require('mysql');
 var connection = mysql.createConnection({
     host: config.sql.host,
@@ -21,6 +21,8 @@ router.get('/', function(req, res, next) {
     var message = req.query.msg;
     if (message == 'badEmailRegister'){
         message = 'This email is already in use'
+    }else{
+        message = ''
     }
 
   res.render('index', { 
@@ -88,6 +90,7 @@ router.post('/processRegister', function(req,res){
     var email = req.body.email
     var gender = req.body.gender
     var password = req.body.password
+    var hash = bcrypt.hashSync(password);
     // console.log(username)
     // console.log(email)
     // console.log(password)
@@ -97,7 +100,7 @@ router.post('/processRegister', function(req,res){
         console.log(results);
         if(results.length == 0){
             var insertQuery = "INSERT INTO userInfo (username,email,password,firstName,gender) VALUES (?,?,?,?,?)";
-            connection.query(insertQuery,[username,email,password,firstName,gender], function(error,results){
+            connection.query(insertQuery,[username,email,hash,firstName,gender], function(error,results){
                 // console.log("================");
                 // console.log(req.session);
                 // console.log("================");
@@ -119,7 +122,8 @@ router.post('/processLogin', function(req,res){
     var selectQuery = "SELECT * FROM userInfo WHERE email = ?";
     connection.query(selectQuery, [email], function(error,results){
         if(results.length == 1){
-            if (password == results[0].password){
+            var match = bcrypt.compareSync(password, results[0].password)
+            if (match == true){
                 req.session.loggedin = true;
                 req.session.username = results[0].username;
                 req.session.email = results[0].email;
