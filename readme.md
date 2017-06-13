@@ -28,7 +28,7 @@ npm install mysql
 
 npm install ejs
 npm install express-session
-npm install bcrypt
+npm install bcrypt-nodejs
 ```
 
 ### Challenges and Solutions

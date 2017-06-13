@@ -30,6 +30,10 @@ body {
 	border-radius: 0px 0px 10px 10px;
 }
 
+.navbar-brand{
+	padding: 5px 25px;
+}
+
 .pages{
 	height: 300vh;
 }
