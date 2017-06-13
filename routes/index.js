@@ -101,7 +101,8 @@ router.post('/processRegister', function(req,res){
                 req.session.username = username;
                 req.session.email = email;
                 req.session.firstName = firstName;
-                req.session.loggedin = true;
+                // req.session.loggedin = true;
+                // currentId = results[0].id;
                 res.redirect('/?msg=registered')
             });
         }else{
