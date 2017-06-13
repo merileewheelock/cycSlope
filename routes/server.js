@@ -219,7 +219,7 @@ var serveStatic = require('serve-static');
 	var googleMapsServer = {
 
 
-		//////////// MAIN FUNCTION - API REQUESTS ////////////
+		/////////// MAIN FUNCTION - API REQUESTS ///////////
 
 
 		getData: function(originInput, destinationInput) {
