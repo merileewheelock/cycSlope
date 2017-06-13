@@ -6,7 +6,16 @@
     <script type="text/javascript">
 
 
-    // Load the Visualization API and the core chart package. 
+
+
+    
+
+    var elevationData = <%- JSON.stringify(mapDetails.elevationData) %>
+    var routeCount = <%= routeCount %>
+
+    for (let j = 0; j < routeCount; j++) {
+
+            // Load the Visualization API and the core chart package. 
         // NOTE: If we want to go with material lines (which we probably do), load line package instead.
         google.charts.load("current", {packages: ["corechart"]});
     // Set a callback to run when the Google Visualization API is loaded.
@@ -14,20 +23,15 @@
     //// (Temprorary) ELEVATION DATA ////
     // Note: Hardcoded for now to create a working example of elevation chart, but in actual code we will need to pass in elevation data from elevation API.
 
-    <% for (let j = 0; j < routeCount; j++) { %>
-
-    var elevationData = <%= mapDetails.elevationData[j] %>
-    console.log(<%=mapDetails%>);
-
     // Callback that creates and populates a data table, instantiates the chart, passes the data, and draws the chart.
         function drawChart() {
         // Create the data table.
             var data = new google.visualization.DataTable();
             data.addColumn('number', 'Sample');
             data.addColumn('number', 'Elevation');
-            for (let i = 0; i < elevationData.results.length; i++) {
+            for (let i = 0; i < elevationData[j].results.length; i++) {
                 data.addRows([
-                    [i, elevationData.results[i].elevation]
+                    [i, elevationData[j].results[i].elevation]
                 ]);
                 console.log("Row added")
             };
@@ -39,9 +43,9 @@
             };
         // Pass in options and instantiate chart
 
-            var chart = new google.visualization.LineChart(document.getElementById('chart'+ <%=(j + 1)%>+'_div'));
+            var chart = new google.visualization.LineChart(document.getElementById('chart'+ (j + 1) +'_div'));
             chart.draw(data, options);
 
         }
-    <% } %>
+    }
     // </script>
