@@ -28,8 +28,10 @@ router.get('/', function(req, res, next) {
     loggedin: req.session.loggedin,
     revisited: false,
     mapApiUrl: '',
-    elevationData: ''
-
+    elevationData: '',
+    distance: '',
+    duration: '',
+    mapDetails: ''
     });
 });
 
@@ -39,25 +41,22 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res) {
     var originInput = req.body.startPoint;
     var destinationInput = req.body.endPoint;
-    // var mapApiUrl;
 
     console.log("Start point: " + originInput);
     console.log("End point: " + destinationInput);
-    
-    // console.log("************************")
-    // console.log(googleMapsServer.getData(originInput,destinationInput));
-    // console.log("************************")
 
+    //finalDest is a Promise from server.js
     var finalDest = googleMapsServer.getData(originInput,destinationInput);
 
-    console.log("***********************")
-    console.log(finalDest)
-    console.log("***********************")
+    // console.log("***********************")
+    // console.log(finalDest)
+    // console.log("***********************")
 
     finalDest.then(
         function(mapDetails){
             console.log("***********************")
             // res.json(mapDetails);
+            // res.json(mapDetails.directionsData.routes[0].legs[0].distance.text)
             console.log("***********************")
             res.render('index', { 
                 title: 'Express',
@@ -67,7 +66,10 @@ router.post('/', function(req, res) {
                 // mapApiUrl: encodeURI(mapApiUrl).split('\\').join('\\')
                 // mapApiUrl: encodeURI(mapApiUrl).replace(/\\\//g, "/")
                 mapApiUrl: encodeURI(mapDetails.staticMap),
-                elevationData: mapDetails.elevationData
+                elevationData: mapDetails.elevationData,
+                distance: mapDetails.directionsData.routes[0].legs[0].distance.text,
+                duration: mapDetails.directionsData.routes[0].legs[0].duration.text,
+                mapDetails: mapDetails
             });
         });
 });

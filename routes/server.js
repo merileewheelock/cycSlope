@@ -35,36 +35,68 @@ var serveStatic = require('serve-static');
 	var originInput = "Atlanta";
 	var destinationInput = "Chattanooga"
 	var encodedPolyline;
+	var resultsCount;
 
 
 	////// FUNCTION - Elevation API Request //////
 
 	getElevation = function(encodedPolyline) {
-		return new Promise((resolve, reject) => {		
+
+
+		console.log("============================")
+		console.log("Start Elevation Function")
+		console.log("============================")
+
+		return new Promise((resolve, reject) => {	
 
 			const elevationApiBaseUrl = "https://maps.googleapis.com/maps/api/elevation/";
 
 			// Later, see if you can figure out how to pass an array of paths. Also adjust the sample rate if needed as well.
 
 			var outputFormat = 'json';
-			var path = encodedPolyline;
+			// var path = encodedPolyline;
 			var samples = 128;
+			var path;
 
-			const elevationUrl =`${elevationApiBaseUrl}${outputFormat}?path=enc:${path}&samples=${samples}&key=${apiKey}`
+			var elevationUrl = `${elevationApiBaseUrl}${outputFormat}?path=enc:${path}&samples=${samples}&key=${apiKey}`
+
+			var elevationData = [];
+			var elevationDataLength = 0;
+
+
+
+            for (let i = 0; i < resultsCount; i++) {
+                var path = encodedPolyline[i];
+                var elevationUrl = `${elevationApiBaseUrl}${outputFormat}?path=enc:${path}&samples=${samples}&key=${apiKey}`
+                request.get(elevationUrl,(error,response,elevationDataResponse)=>{
+                	elevationDataLength++;
+                	elevationData[i] = JSON.parse(elevationDataResponse);
+                	// console.log(elevationData[i])
+                	if(elevationDataLength == resultsCount){
+            			resolve(elevationData);
+            			console.log("============================")
+						console.log("Elevation Promise Resolved")
+						console.log("============================")    		
+                	}
+                });
+            }
+            
+
+			// const elevationUrl =`${elevationApiBaseUrl}${outputFormat}?path=enc:${path}&samples=${samples}&key=${apiKey}`
 
 			// console.log("=======================================");
 			// console.log("--- Elevation URL ---");
 			// console.log("=======================================");
 			// console.log(elevationUrl);
 
-			request.get(elevationUrl,(error,response,elevationData)=>{
-				elevationData = JSON.parse(elevationData);
-				resolve(elevationData);
+			// request.get(elevationUrl,(error,response,elevationData)=>{
+			// 	elevationData = JSON.parse(elevationData);
+			// 	resolve(elevationData);
 				// console.log("=======================================");
 				// console.log("--- Elevation Data ---");
 				// console.log("=======================================");
 				// console.log(elevationData);
-			});
+			// });
 		});
 	};
 
@@ -73,19 +105,33 @@ var serveStatic = require('serve-static');
 	///////// FUNCTION - Static Map API Request /////////
 
 	drawStaticMap = function(encodedPolyline) {
+
+		console.log("============================")
+		console.log("Start Static Map Function")
+		console.log("============================")
+
 		const mapApiBaseUrl = "https://maps.googleapis.com/maps/api/staticmap?";
 
 		var size = "320x320";
 		var mapType = "terrain";
-		var path = encodedPolyline;
+		// var path = encodedPolyline;
 
-		const mapApiUrl = `${mapApiBaseUrl}size=${size}&maptype=${mapType}&path=enc:${path}&key=${mapApiKey}`
+		// const mapApiUrl = `${mapApiBaseUrl}size=${size}&maptype=${mapType}&path=enc:${path}&key=${mapApiKey}`
+
+		var mapApiUrl = [];
+
+        for (let i = 0; i < resultsCount; i++) {
+            var path = encodedPolyline[i];
+            mapApiUrl[i] = `${mapApiBaseUrl}size=${size}&maptype=${mapType}&path=enc:${path}&key=${mapApiKey}`
+        }
 
 		console.log("=======================================");
 		console.log("--- Map URL ---");
 		console.log("=======================================");
 		console.log(mapApiUrl);
 		return mapApiUrl;
+
+
 	};
 
 
@@ -110,21 +156,43 @@ var serveStatic = require('serve-static');
 			console.log("=======================================")
 			console.log(directionsUrl);
 
+			encodedPolyline = []
+
 			request.get(directionsUrl,(error,response,directionsData)=>{
 				directionsData = JSON.parse(directionsData);
 
-				encodedPolyline = directionsData.routes[0].overview_polyline.points
+				console.log(directionsData.routes)
 
-				for (let i = 0; i < directionsData.routes.length; i++) {
+
+				resultsCount = directionsData.routes.length;
+
+				var polylineCount = 0
+
+				console.log(resultsCount)
+
+				for (let i = 0; i < resultsCount; i++) {
+
+					encodedPolyline[i] = directionsData.routes[i].overview_polyline.points
+
+					// console.log(directionsData)
+					// console.log("=======================================")
+					// console.log("--- Encoded Polyline Route Summary ---")
+					// console.log("=======================================")
+					// console.log(encodedPolyline)
+					polylineCount = polylineCount + 1
+					console.log("Polyline Count =" + polylineCount)
+					console.log("Results Count =" + resultsCount)
 					console.log(directionsData)
-					console.log("=======================================")
-					console.log("--- Encoded Polyline Route Summary ---")
-					console.log("=======================================")
-					console.log(encodedPolyline)
+					if (polylineCount == resultsCount) {
+						resolve(directionsData);
+					}
 				}
+
+				console.log("===== ENCODED POLYLINE =========")
+				console.log(encodedPolyline)
+				console.log("================================")
 				// Promise conditions //
-				if (error) reject(error);
-				else resolve(directionsData);				
+								
 			})
 		})
 	};

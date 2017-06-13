@@ -1,7 +1,15 @@
 body {
 	font-family: 'Poppins', sans-serif;
 	font-size: 14px;
-	overflow: hidden;	
+	overflow: hidden;
+	background:
+	    /* top, transparent red, faked with gradient */
+	    linear-gradient(
+	      rgba(25, 29, 34, 0.65),
+	      rgba(25, 29, 34, 0.65)
+	    ),
+	    url('../images/video-static.png') no-repeat;
+	background-size: cover;
 }
 
 .bg-overlay{
