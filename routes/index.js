@@ -56,8 +56,10 @@ router.post('/', function(req, res) {
     // console.log(finalDest)
     // console.log("***********************")
 
+
     finalDest.then(
         function(mapDetails){
+            console.log(mapDetails);
             // res.json(mapDetails);
             // res.json(mapDetails.directionsData.routes[0].legs[0].distance.text)
             console.log("***********************")
@@ -71,7 +73,7 @@ router.post('/', function(req, res) {
                 elevationData: mapDetails.elevationData,
                 // distance: mapDetails.directionsData.routes[0].legs[0].distance.text,
                 // duration: mapDetails.directionsData.routes[0].legs[0].duration.text,
-                mapDetails: mapDetails
+                mapDetails: JSON.stringify(mapDetails)
             });
         });
 });
