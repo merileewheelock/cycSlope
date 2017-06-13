@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
     revisited: false,
     routeCount: '',
     mapApiUrl: '',
-    elevationData: '',
+    // elevationData: '',
     // distance: '',
     // duration: '',
     mapDetails: ''
@@ -70,10 +70,10 @@ router.post('/', function(req, res) {
                 revisited: true,
                 routeCount: mapDetails.directionsData.routes.length,
                 // mapApiUrl: encodeURI(mapDetails.staticMap),
-                elevationData: mapDetails.elevationData,
+                // elevationData: mapDetails.elevationData,
                 // distance: mapDetails.directionsData.routes[0].legs[0].distance.text,
                 // duration: mapDetails.directionsData.routes[0].legs[0].duration.text,
-                mapDetails: JSON.stringify(mapDetails)
+                mapDetails: mapDetails
             });
         });
 });
