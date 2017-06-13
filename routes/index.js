@@ -55,10 +55,11 @@ router.post('/', function(req, res) {
 
     finalDest.then(
         function(mapDetails){
-            console.log("***********************")
+            var numOfRoutes = mapDetails.directionsData.routes.length;
+            console.log(numOfRoutes)
             // res.json(mapDetails);
             // res.json(mapDetails.directionsData.routes[0].legs[0].distance.text)
-            console.log("***********************")
+            
             res.render('index', { 
                 title: 'Express',
                 message: '',
@@ -92,8 +93,8 @@ router.post('/processRegister', function(req,res){
     // console.log(password)
     var selectQuery = "SELECT * FROM userInfo WHERE email = ?";
     connection.query(selectQuery,[email], function(error, results){
-        console.log('-------------')
-        console.log(results);
+        // console.log('-------------')
+        // console.log(results);
         if(results.length == 0){
             var insertQuery = "INSERT INTO userInfo (username,email,password,firstName,gender) VALUES (?,?,?,?,?)";
             connection.query(insertQuery,[username,email,password,firstName,gender], function(error,results){
