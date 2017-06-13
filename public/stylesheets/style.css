@@ -195,7 +195,11 @@ input{
 	margin: 5px;
 }
 
-#chart1_div {
+.map{
+	margin-top: -320px;
+}
+
+.elev-chart {
 	display: inline-block;
 }
 
