@@ -28,10 +28,11 @@ router.get('/', function(req, res, next) {
     message: message,
     loggedin: req.session.loggedin,
     revisited: false,
+    routeCount: '',
     mapApiUrl: '',
     elevationData: '',
-    distance: '',
-    duration: '',
+    // distance: '',
+    // duration: '',
     mapDetails: ''
     });
 });
@@ -55,7 +56,6 @@ router.post('/', function(req, res) {
 
     finalDest.then(
         function(mapDetails){
-            console.log("***********************")
             // res.json(mapDetails);
             // res.json(mapDetails.directionsData.routes[0].legs[0].distance.text)
             console.log("***********************")
@@ -64,12 +64,11 @@ router.post('/', function(req, res) {
                 message: '',
                 loggedin: req.session.loggedin,
                 revisited: true,
-                // mapApiUrl: encodeURI(mapApiUrl).split('\\').join('\\')
-                // mapApiUrl: encodeURI(mapApiUrl).replace(/\\\//g, "/")
-                mapApiUrl: encodeURI(mapDetails.staticMap),
+                routeCount: mapDetails.directionsData.routes.length,
+                // mapApiUrl: encodeURI(mapDetails.staticMap),
                 elevationData: mapDetails.elevationData,
-                distance: mapDetails.directionsData.routes[0].legs[0].distance.text,
-                duration: mapDetails.directionsData.routes[0].legs[0].duration.text,
+                // distance: mapDetails.directionsData.routes[0].legs[0].distance.text,
+                // duration: mapDetails.directionsData.routes[0].legs[0].duration.text,
                 mapDetails: mapDetails
             });
         });

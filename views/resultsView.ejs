@@ -1,58 +1,39 @@
 
-
 <div id="carousel-example-generic" class="my-carousel carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
-    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    <% for (let i = 0; i < routeCount; i++) { %>
+        <li data-target="#carousel-example-generic" data-slide-to="<%=i%>" <% if (i == 0) {%>class="active"<% } %>></li>
+
+    <% } %>
+
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
-    <div class="item active">
+
+    <% for (let i = 0; i < routeCount; i++) { %>
+
+        <div class="item <% if (i == 0) {%>active<% } %>">
         <!-- mapApiUrl div -->
-        <div class="text-center map-div" id="map1_div"><img class="map" src="<%= mapApiUrl%>" /></div>
+        <div class="text-center map-div" id="map<%=i + 1%>_div"><img class="map" src="<%= encodeURI(mapDetails.staticMap[i])%>" /></div>
         <!-- elevationData chart -->
-        <div class="text-center elev-chart" id="chart1_div"></div>
+        <div class="text-center elev-chart" id="chart<%=i + 1%>_div"></div>
         <!-- Distance / Change in Elevation / Time div -->
         <div class="carousel-caption caption">
-            <h3>Route 1</h3>
+            <h3>Route <%=i + 1%></h3>
             <ul>
-                <li class="carousel-list">Distance: <span class="distance-result-1"><%= distance%></span></li>
-                <li class="carousel-list">Time: <span class="time-result-1"><%= duration%></span></li>
+                <li class="carousel-list">Distance: <span class="distance-result-<%=i + 1%>"><%=mapDetails.directionsData.routes[i].legs[0].distance.text%></span></li>
+                <li class="carousel-list">Time: <span class="time-result-<%=i + 1%>"><%=mapDetails.directionsData.routes[i].legs[0].duration.text%></span></li>
             </ul>
         </div>
     </div>
-    <div class="item">
-        <!-- mapApiUrl div -->
-        <div class="text-center map-div" id="map2_div"><img class="map" src="http://via.placeholder.com/320x320" /></div>
-        <!-- elevationData chart -->
-        <div class="text-center elev-chart" id="chart2_div"></div>
-        <!-- Distance / Change in Elevation / Time div -->
-        <div class="carousel-caption caption">
-            <h3>Route 2</h3>
-            <ul>
-                <li class="carousel-list">Distance: <span class="distance-result-2">X</span></li>
-                <li class="carousel-list">Time: <span class="time-result-2">X</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="item">
-        <!-- mapApiUrl div -->
-        <div class="text-center map-div" id="map3_div"><img class="map" src="http://via.placeholder.com/320x320" /></div>
-        <!-- elevationData chart -->
-        <div class="text-center elev-chart" id="chart3_div"></div>
-        <!-- Distance / Change in Elevation / Time div -->
-        <div class="carousel-caption caption">
-            <h3>Route 3</h3>
-            <ul>
-                <li class="carousel-list">Distance: <span class="distance-result-3">X</span></li>
-                <li class="carousel-list">Time: <span class="time-result-3">X</span></li>
-            </ul>
-        </div>
-    </div>
+
+
+    <% } %>
+
   </div>
+
 
   <!-- Controls -->
   <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
