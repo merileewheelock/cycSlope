@@ -30,6 +30,10 @@ body {
 	border-radius: 0px 0px 10px 10px;
 }
 
+.navbar-brand{
+	padding: 5px 25px;
+}
+
 .pages{
 	height: 300vh;
 }
@@ -146,6 +150,16 @@ input{
 	width: 50%;
 }
 
+.radio-form{
+	text-align: left;
+	display: inline-block;
+	width: 200px;
+}
+.radio-form input{
+	width: 25px;
+}
+
+
 /* --------RESULTS-VIEW-------- */
 
 .my-carousel{
@@ -231,4 +245,16 @@ input{
 }
 .profile-header{
 	text-decoration: underline;
+}
+
+.dropdown{
+	position: relative;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Bottom of button */
+  right: 0;
+  margin-left: 215px; /* More to the left */
+  width: 25%;
+
 }
