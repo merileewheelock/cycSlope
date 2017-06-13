@@ -12,7 +12,8 @@ cycSlope is a route planning web application for users who are looking to choose
 
 ### Technologies Used
 Google Maps API
-jQuery - AJAX
+jQuery
+AJAX
 Bootstrap
 MySQL
 Express
@@ -21,26 +22,27 @@ Node.js
 
 ### Dependencies
 ```
-Npm install express
-Npm install mysql
-Nmp install express-session
-Npm install bcrypt
-Npm install body-parser (?)
-Npm install ejs
-Npm install request
+npm install express
+npm install request
+npm install mysql
+
+npm install ejs
+npm install express-session
+npm install bcrypt
 ```
 
 ### Challenges and Solutions
 #### Learning SourceTree and GitHub
-	-Merge conflicts due to limited experience working with Sourcetree and Github
+Our team collaborated through GitHub within the SourceTree UI. Most of the challenges we faced involved merge conflicts working on the same files among four team members. We were able to better understand the Resolve Conflicts options via "mine" or "their" files. We also grasped a better understanding of the commit/pull/push flow.
 #### Processing Get/Post requests in a Single-Page Application
-	-Linking PointA & PointB submit/input fields to put map in on “Page 2” (Kept breaking the slide from “Page 1” to “Page 2” while remaining on main index page)
-		-Removed <form>. Used scripts.js to collect input data instead. This maintained the functionality between the Page1/Page2 scrolling
+For our project, we decided to pursue the UX option of a single-page web application. Without applying React methodologies to our code, this proposed an issue with the standard "get" and "post" interactions of express. Since the user never actually leaves the index.ejs file after entering in start and end points, the site never reopened a "post" request to HTTP. To solve this, we implemented several JavaScript promises to tell our code to check back on the code to see if a user enters a start point and end destination.
 #### JavaScript Promises
+At this point in our course, we did not review JavaScript promises as a class, so we needed to explore documentation and promises syntax on our own. This allowed us to really dive into the methodolgies behind JavaScript promises and grasp a solid understanding of how it works in the code. We've included examples of the promise scripts in the code snippets below.
 
 ### Code Snippets
 ```
-TBD
+server.js promises (getData)
+for loop for the multiple routes/elevation maps
 ```
 
 ### Screenshots
