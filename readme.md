@@ -67,6 +67,17 @@ router.post('/processLogin', function(req,res){
 ```
 #### JavaScript Promises from server.js
 ```
+/*              .
+                |
+             .-"^"-.
+            /_....._\
+        .-"`         `"-.
+       (  ooo  ooo  ooo  )
+        '-.,_________,.-'
+            /       \
+          _/         \_
+         `"`         `"`    */
+         
 getData: function(originInput, destinationInput) {
             var mapDetails = {};
             return new Promise((resolve, reject) => {
