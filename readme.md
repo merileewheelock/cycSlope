@@ -11,14 +11,14 @@ cycSlope is a route planning web application for users who are looking to choose
 * Ian Booton
 
 ### Technologies Used
-Google Maps API
-jQuery
-AJAX
-Bootstrap
-MySQL
-Express
-EJS
-Node.js
+* Google Maps API
+* jQuery
+* AJAX
+* Bootstrap
+* MySQL
+* Express
+* EJS
+* Node.js
 
 ### Dependencies
 ```
