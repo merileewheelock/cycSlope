@@ -1,7 +1,15 @@
 body {
 	font-family: 'Poppins', sans-serif;
 	font-size: 14px;
-	overflow: hidden;	
+	overflow: hidden;
+	background:
+        /* top, transparent red, faked with gradient */
+        linear-gradient(
+          rgba(25, 29, 34, 0.65),
+          rgba(25, 29, 34, 0.65)
+        ),
+        url('../images/video-static.png') no-repeat;
+    background-size: cover;
 }
 
 .bg-overlay{
@@ -175,8 +183,13 @@ input{
 .main-profile-box{
 	position: relative;
 	border: 2px solid black;
-	background-color: lightgray;
-	margin-top: 100px;
+	margin-top: 150px;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 50px;
+}
+.bg-profile-box{
+
 }
 
 .prof-pic{
@@ -191,12 +204,20 @@ input{
 .user-info-table{
 	margin: 50px;
 }
+.prof-info-input{
+	margin-left: 155px;
+}
 
 .user-info-area{
-	margin-top: 10px;
+	margin-top: 30px;
+	padding-bottom: 200px;
 	font-size: 20px;
+	margin-left: 155px;
 }
 
 .info-input, .info-output{
 	margin-bottom: 10px;
+}
+.profile-header{
+	text-decoration: underline;
 }
