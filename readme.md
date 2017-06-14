@@ -2,7 +2,7 @@
 ## Made with Express, Javascript, jQuery, Booststrap, and CSS
 
 ### Overview
-cycSlope is a route planning web application for users who are looking to choose their routes based on elevation change. Using Google Maps APIs, it allows users to enter any starting point and destination point, and cycSlope will provide three route options complete with a static map of the route and a visual line graph to display the elevation changes in each.
+cycSlope is a route planning web application for users who are looking to choose their routes based on elevation change. Using Google Maps APIs, it allows users to enter any starting point and destination point, and cycSlope will provide two to four different route options complete with a static map of the route and a visual line graph to display the elevation changes in each.
 
 ### Team Members
 * Guido Bacce
