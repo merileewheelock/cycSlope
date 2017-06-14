@@ -119,12 +119,12 @@ getData: function(originInput, destinationInput) {
 
 ### Screenshots
 #### Homepage
-![Homepage](../images/homepage.png)
+![Homepage](/public/images/homepage.png)
 #### Route Search
-![Route Search](../images/route-search.png)
+![Route Search](/public/images/route-search.png)
 #### Log In Modal
-![Log In Modal](../images/login-modal.png)
+![Log In Modal](/public/images/login-modal.png)
 #### Register Modal
-![Register Modal](../images/register-modal.png)
+![Register Modal](/public/images/register-modal.png)
 #### User Profile Page
-![User Profile Page](../images/profile-page.png)
+![User Profile Page](/public/images/profile-page.png)
