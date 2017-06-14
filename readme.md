@@ -117,7 +117,7 @@ getData: function(originInput, destinationInput) {
 <% } %>
 ```
 
-<!-- ### Screenshots
+### Screenshots
 #### Homepage
 ![Homepage](/public/images/homepage.png)
 #### Route Search
@@ -127,4 +127,4 @@ getData: function(originInput, destinationInput) {
 #### Register Modal
 ![Register Modal](/public/images/register-modal.png)
 #### User Profile Page
-![User Profile Page](/public/images/profile-page.png) -->
+![User Profile Page](/public/images/profile-page.png)
