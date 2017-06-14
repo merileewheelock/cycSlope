@@ -40,7 +40,7 @@ For our project, we decided to pursue the UX option of a single-page web applica
 At this point in our course, we did not review JavaScript promises as a class, so we needed to explore documentation and promises syntax on our own. This allowed us to really dive into the methodolgies behind JavaScript promises and grasp a solid understanding of how it works in the code. We've included examples of the promise scripts in the code snippets below.
 
 ### Code Snippets
-#### Login functionality from index.js file
+#### Log in functionality from index.js file
 ```
 router.post('/processLogin', function(req,res){
     var email = req.body.email
@@ -118,3 +118,13 @@ getData: function(originInput, destinationInput) {
 ```
 
 ### Screenshots
+#### Homepage
+![Homepage](/images/homepage.png)
+#### Route Search
+![Route Search](/images/route-search.png)
+#### Log In Modal
+![Log In Modal](/images/login-modal.png)
+#### Register Modal
+![Register Modal](/images/register-modal.png)
+#### User Profile Page
+![User Profile Page](/images/profile-page.png)
